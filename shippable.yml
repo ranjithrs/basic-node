@@ -18,6 +18,8 @@ pipelines:
             image:
              auto:
                language: nodejs
+               versions:
+                 - 1
         triggeredBy:
           resources:
             - src
