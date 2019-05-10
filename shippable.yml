@@ -16,10 +16,9 @@ pipelines:
           runtime:
             type: image
             image:
-             auto:
-               language: nodejs
-               versions:
-                 - 1
+             custom:
+               name: drydock/u16nodall
+               tag: v7.2.4
         triggeredBy:
           resources:
             - src
