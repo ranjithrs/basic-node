@@ -24,8 +24,7 @@ pipelines:
             - src
         execution:
           onExecute:
-            - env
-            - sleep 100
+            - cd $res_src_resourcePath
             - shippable_retry npm install
             - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
             - pushd $TESTS_LOC_DIR
