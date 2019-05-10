@@ -12,13 +12,7 @@ pipelines:
     steps:
       - name: build
         type: bash
-        setup:
-          environmentVariables: 
-            normal: 
-              - TEST_RESULTS_DIR=shippable/testresults
-              - CODE_COVERAGE_DIR=shippable/codecoverage
-              - TESTS_LOC_DIR=tests
-              - MOD_LOC=node_modules/.bin/        
+        setup:   
           runtime:
             type: image
             image:
@@ -32,10 +26,10 @@ pipelines:
           onExecute:
             - cd $res_src_resourcePath
             - shippable_retry npm install
-            - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
-            - pushd $TESTS_LOC_DIR
-            - $MOD_LOC/mocha --recursive "$TESTS_LOC_DIR/**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
-            - $MOD_LOC/istanbul --include-all-sources cover -root "routes" node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
-            - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
+            - mkdir -p shippable/testresults && mkdir -p shippable/codecoverage
+            - pushd tests
+            - node_modules/.bin/mocha --recursive "tests/**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=shippable/testresults/testresults.xml
+            - node_modules/.bin/istanbul --include-all-sources cover -root "routes" node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "tests/**/*.spec.js"
+            - node_modules/.bin/istanbul report cobertura --dir shippable/codecoverage
             - popd
  
