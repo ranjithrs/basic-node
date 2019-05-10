@@ -15,10 +15,10 @@ pipelines:
         setup:
           environmentVariables:
             normal:
-              - TEST_RESULTS_DIR=$SHIPPABLE_REPO_DIR/shippable/testresults
-              - CODE_COVERAGE_DIR=$SHIPPABLE_REPO_DIR/shippable/codecoverage
-              - TESTS_LOC_DIR=$SHIPPABLE_REPO_DIR/tests
-              - MOD_LOC=$SHIPPABLE_REPO_DIR/node_modules/.bin/        
+              - TEST_RESULTS_DIR=shippable/testresults
+              - CODE_COVERAGE_DIR=shippable/codecoverage
+              - TESTS_LOC_DIR=tests
+              - MOD_LOC=node_modules/.bin/        
           runtime:
             type: image
             image:
@@ -34,7 +34,7 @@ pipelines:
             - mkdir -p $TEST_RESULTS_DIR && mkdir -p $CODE_COVERAGE_DIR
             - pushd $TESTS_LOC_DIR
             - $MOD_LOC/mocha --recursive "$TESTS_LOC_DIR/**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=$TEST_RESULTS_DIR/testresults.xml
-            - $MOD_LOC/istanbul --include-all-sources cover -root "$SHIPPABLE_REPO_DIR/routes" $SHIPPABLE_REPO_DIR/node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
+            - $MOD_LOC/istanbul --include-all-sources cover -root "routes" node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "$TESTS_LOC_DIR/**/*.spec.js"
             - $MOD_LOC/istanbul report cobertura --dir $CODE_COVERAGE_DIR
             - popd
  
