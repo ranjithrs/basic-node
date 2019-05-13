@@ -29,12 +29,9 @@ pipelines:
             - cd $res_src_resourcePath
             - shippable_retry npm install
             - mkdir -p shippable/testresults && mkdir -p shippable/codecoverage
-            - pushd tests
-            - sleep 100
             - $res_src_resourcePath/node_modules/.bin/mocha --recursive "tests/**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=shippable/testresults/testresults.xml
             - $res_src_resourcePath/node_modules/.bin/istanbul --include-all-sources cover -root "routes" node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "tests/**/*.spec.js"
             - $res_src_resourcePath/node_modules/.bin/istanbul report cobertura --dir shippable/codecoverage
-            - popd
       - name: unit_test
         type: bash
         configuration:
