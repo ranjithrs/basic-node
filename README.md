@@ -5,8 +5,6 @@
 
 A simple Node JS application with unit tests and coverage reports using mocha and istanbul.
 
-![AyeAye](https://github.com/shippableSamples/node-with-tests-coverage/blob/master/public/resources/images/captain.png)
-
 ## Run CI for this repo on Shippable
 * Fork this repo into your local repo
 * Login into the [Continuous Integration Service](wwww.shippable.com)
