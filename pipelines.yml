@@ -4,7 +4,7 @@ resources:
     repoPath: ranjithrs/basic-node
     configuration:
       integrationName: ranjithr_github
-    initialVersion:
+    version:
       sha: master
 
 pipelines:
