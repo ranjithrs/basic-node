@@ -26,6 +26,7 @@ pipelines:
             - src
         execution:
           onExecute:
+            - echo env
             - cd $res_src_resourcePath
             - shippable_retry npm install
             - sleep 10
