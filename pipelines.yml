@@ -1,11 +1,9 @@
 resources:
   - name: src
     type: GitRepo
-    path: ranjithrs/basic-node
     configuration:
       gitProvider: ranjithr_github
-    version:
-      sha: master
+      path: ranjithrs/basic-node
 
 pipelines:
   - name: ranjithr_pipeline
