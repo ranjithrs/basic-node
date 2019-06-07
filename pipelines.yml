@@ -1,9 +1,9 @@
 resources:
   - name: src
-    type: gitRepo
+    type: GitRepo
     repoPath: ranjithrs/basic-node
     configuration:
-      integrationName: ranjithr_github
+      gitProvider: ranjithr_github
     version:
       sha: master
 
