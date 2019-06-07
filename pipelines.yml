@@ -1,7 +1,7 @@
 resources:
   - name: src
     type: GitRepo
-    repoPath: ranjithrs/basic-node
+    path: ranjithrs/basic-node
     configuration:
       gitProvider: ranjithr_github
     version:
