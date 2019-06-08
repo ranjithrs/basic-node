@@ -9,23 +9,20 @@ pipelines:
   - name: ranjithr_pipeline
     steps:
       - name: build
-        type: bash
+        type: Bash
         configuration:
           nodePool: ranjithr_pool
-        setup:   
           runtime:
             type: image
             image:
              custom:
                name: drydock/u16nodall
                tag: v7.2.4
-        triggeredBy:
-          resources:
-            - src
+          inputResources:
+            - name: src
         execution:
           onExecute:
             - env | sort
-            - sleep 300            
             - cd $res_src_resourcePath
             - shippable_retry npm install
             - mkdir -p shippable/testresults && mkdir -p shippable/codecoverage
@@ -34,54 +31,30 @@ pipelines:
             - $res_src_resourcePath/node_modules/.bin/istanbul report cobertura --dir shippable/codecoverage
             - save_tests $res_src_resourcePath/shippable/testresults/testresults.xml
       - name: unit_test
-        type: bash
+        type: Bash
         configuration:
           nodePool: ranjithr_pool        
-        setup:   
-          runtime:
-            type: image
-            image:
-             custom:
-               name: drydock/u16nodall
-               tag: v7.2.4
-        triggeredBy:
-          steps:
-            - build
+          inputSteps:
+            - name: build
         execution:
           onExecute:
             - echo "Unit Test completed"
       - name: xray_scan
-        type: bash
+        type: Bash
         configuration:
           nodePool: ranjithr_pool        
-        setup:   
-          runtime:
-            type: image
-            image:
-             custom:
-               name: drydock/u16nodall
-               tag: v7.2.4
-        triggeredBy:
-          steps:
-            - build
+          inputSteps:
+            - name: build
         execution:
           onExecute:
             - echo "Xray scan completed"
       - name: publish_artifacts
-        type: bash
+        type: Bash
         configuration:
           nodePool: ranjithr_pool        
-        setup:   
-          runtime:
-            type: image
-            image:
-             custom:
-               name: drydock/u16nodall
-               tag: v7.2.4
-        triggeredBy:
-          steps:
-            - unit_test
-            - xray_scan
+          inputSteps:
+            - name: unit_test
+            - name: xray_scan
         execution:
           onExecute:
             - echo "Publish to RT completed"
