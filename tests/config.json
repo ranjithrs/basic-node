@@ -3,6 +3,6 @@
     "consoleOutput" : {
         "suite" : true,
         "test" : true,
-        "fail" : false
+        "fail" : true
     }
 }
