@@ -10,7 +10,7 @@ describe('/ route',
             request(app)
               .get('/')
               .expect('Content-Type', /text\/html/)
-              .expect(400, done);
+              .expect(200, done);
           }
         );
       }
