@@ -11,7 +11,7 @@ describe('/name route',
               .get('/name')
               .expect('Content-Type', /json/)
               .expect(200, {
-                firstName: 'John',
+                firstName: 'Johnny',
                 lastName: 'Smith'
               }, done);
           }
